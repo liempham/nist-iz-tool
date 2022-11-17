@@ -15,6 +15,9 @@ The containers utilize persistent data volumes inside "data-volumes" folder
 
 # Run the container
 ```
+ #need to remove this file at 1st run to make the folder empty, so that MySQL can initialize data
+ rm -f data-volume/db/note.txt
+
  docker-compose up
 ```
 There are logs for troubleshooting:
