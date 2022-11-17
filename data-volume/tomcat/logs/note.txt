@@ -1,0 +1,1 @@
+this folder is data volume for tomcat logs

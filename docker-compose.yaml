@@ -1,0 +1,25 @@
+version: '1'
+services:
+  db:
+    image: 'mysql:5.7.40'
+    volumes:
+      - ./data-volume/db:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+     - 3306:3306
+
+  tomcat:
+    depends_on:
+      - db
+    image: 'tomcat:7.0.109-jdk8-corretto'
+    restart: on-failure:3
+    volumes:
+      - ./data-volume/tomcat/webapps:/usr/local/tomcat/webapps
+      - ./data-volume/tomcat/logs:/usr/local/tomcat/logs
+      - ./data-volume/tomcat/conf/context.xml:/usr/local/tomcat/conf/context.xml
+    ports:
+      - '8080:8080'
+    links:
+      - db:db-container
